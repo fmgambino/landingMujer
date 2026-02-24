@@ -12,7 +12,7 @@
 
   --primary:#f38ba8;     /* rosa pastel elegante */
   --primary2:#ffb4c7;
-  --accent:#7c3aed;      /* violeta suave como en referencia */
+  --accent:#7c3aed;      /* violeta suave */
   --ok:#22c55e;
   --wa:#25D366;
 
@@ -48,8 +48,33 @@ body{
 
 a{ color: inherit; text-decoration: none; }
 .wrap{ width:min(1100px, 100%); margin:0 auto; padding:0 18px; }
-
 .muted{ color: var(--muted); }
+
+/* =========================
+   GLOBAL FORM/BTN RESET (fix móvil: texto invisible)
+========================= */
+button, input, textarea, select { font: inherit; }
+button{
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  background: transparent;
+  border: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+input{
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* focus accesible */
+:focus-visible{
+  outline: 2px solid color-mix(in oklab, var(--primary) 55%, transparent);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
 
 /* =========================
    Topbar
@@ -89,8 +114,12 @@ a{ color: inherit; text-decoration: none; }
   border-radius: 999px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
 }
 .btn:active{ transform: scale(.98); }
 .btn--sm{ padding: 10px 14px; font-weight: 700; }
@@ -145,9 +174,7 @@ a{ color: inherit; text-decoration: none; }
   .hero__grid{ grid-template-columns: 1fr; }
 }
 
-.hero__copy{
-  padding: 18px 0;
-}
+.hero__copy{ padding: 18px 0; }
 
 .pill{
   display:inline-flex;
@@ -172,9 +199,7 @@ a{ color: inherit; text-decoration: none; }
   letter-spacing: -1px;
   margin: 16px 0 10px;
 }
-.hl{
-  color: color-mix(in oklab, var(--primary) 70%, var(--text));
-}
+.hl{ color: color-mix(in oklab, var(--primary) 70%, var(--text)); }
 .hero__subtitle{
   margin: 0;
   font-size: 1.02rem;
@@ -257,9 +282,7 @@ a{ color: inherit; text-decoration: none; }
    Sections
 ========================= */
 .section{ padding: 22px 0 10px; }
-.section--alt{
-  padding: 22px 0 14px;
-}
+.section--alt{ padding: 22px 0 14px; }
 .section--alt .wrap{
   border-radius: 22px;
   background: color-mix(in oklab, var(--card) 78%, transparent);
@@ -296,7 +319,7 @@ a{ color: inherit; text-decoration: none; }
 }
 
 /* =========================
-   Fit cards grid (like reference)
+   Fit cards
 ========================= */
 .fitgrid{
   display:grid;
@@ -308,6 +331,7 @@ a{ color: inherit; text-decoration: none; }
   .fitgrid{ grid-template-columns: 1fr; }
 }
 .fitcard{
+  width: 100%;
   text-align:left;
   border: 1px solid var(--stroke);
   background: linear-gradient(180deg, color-mix(in oklab, var(--card) 86%, transparent), var(--card2));
@@ -318,10 +342,12 @@ a{ color: inherit; text-decoration: none; }
   align-items:center;
   box-shadow: 0 18px 45px rgba(0,0,0,.22);
   cursor:pointer;
+
+  /* FIX: evita texto invisible en móviles */
+  color: var(--text);
+  -webkit-text-fill-color: var(--text);
 }
-.fitcard:hover{
-  border-color: color-mix(in oklab, var(--primary) 30%, var(--stroke));
-}
+.fitcard:hover{ border-color: color-mix(in oklab, var(--primary) 30%, var(--stroke)); }
 .fitcard__icon{
   width: 34px; height: 34px;
   border-radius: 999px;
@@ -338,7 +364,7 @@ a{ color: inherit; text-decoration: none; }
 }
 
 /* =========================
-   Info cards (3)
+   Info cards
 ========================= */
 .cards3{
   display:grid;
@@ -399,32 +425,57 @@ a{ color: inherit; text-decoration: none; }
   overflow:hidden;
   position:relative;
 }
+
+/* FRAME vertical + preview */
 .story__frame{
   aspect-ratio: 9 / 16;
-  background:
-    radial-gradient(900px 600px at 40% 10%, rgba(124,58,237,.20), transparent 55%),
-    radial-gradient(900px 600px at 60% 20%, rgba(243,139,168,.12), transparent 55%),
-    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65));
+  position: relative;
   display:flex;
   align-items:flex-end;
   padding: 14px;
+  color: var(--text);
+  -webkit-text-fill-color: var(--text);
 }
-body.theme-light .story__frame{
+
+/* Thumbnail cover */
+.story__thumb{
+  position:absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.02) contrast(1.02);
+  transform: scale(1.03);
+}
+
+/* Overlay para legibilidad */
+.story__overlay{
+  position:absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 600px at 40% 10%, rgba(124,58,237,.20), transparent 55%),
+    radial-gradient(900px 600px at 60% 20%, rgba(243,139,168,.12), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.70));
+}
+
+/* overlay más suave en claro */
+body.theme-light .story__overlay{
   background:
     radial-gradient(900px 600px at 40% 10%, rgba(124,58,237,.10), transparent 55%),
     radial-gradient(900px 600px at 60% 20%, rgba(243,139,168,.08), transparent 55%),
-    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.20));
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.20));
 }
 
 .story__meta{
   width:100%;
+  position: relative;
+  z-index: 2;
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
   gap: 10px;
 }
 .story__title{ font-weight: 900; letter-spacing:-.2px; }
-.story__sub{ font-size:.82rem; color: var(--muted); margin-top: 4px; }
+.story__sub{ font-size:.82rem; color: color-mix(in oklab, var(--muted) 78%, var(--text)); margin-top: 4px; }
 
 .playbtn{
   width: 46px; height: 46px;
@@ -435,9 +486,11 @@ body.theme-light .story__frame{
   place-items:center;
   cursor:pointer;
   flex: 0 0 auto;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
 }
 .playbtn span{ font-size: 18px; color: var(--primary); }
 
+/* Reviews */
 .slider--reviews .review{
   width: 320px;
   flex: 0 0 auto;
@@ -453,6 +506,8 @@ body.theme-light .story__frame{
   background: linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent), var(--card2));
   padding: 16px;
   box-shadow: 0 18px 55px rgba(0,0,0,.22);
+  color: var(--text);
+  -webkit-text-fill-color: var(--text);
 }
 .review__top{ display:flex; gap: 12px; align-items:center; }
 .avatar{
@@ -467,7 +522,7 @@ body.theme-light .story__frame{
 .review__text{ margin: 12px 0 0; color: color-mix(in oklab, var(--muted) 65%, var(--text)); }
 
 /* =========================
-   FAQ
+   FAQ (Fix definitivo dark/light)
 ========================= */
 .faq{ display:grid; gap: 10px; margin-top: 10px; }
 .faq__item{
@@ -479,8 +534,12 @@ body.theme-light .story__frame{
   padding: 16px;
   cursor:pointer;
   position: relative;
+
+  /* FIX: forzar contraste en mobile */
+  color: var(--text);
+  -webkit-text-fill-color: var(--text);
 }
-.faq__q{ font-weight: 900; display:block; padding-right: 40px; }
+.faq__q{ font-weight: 900; display:block; padding-right: 44px; }
 .faq__icon{
   position:absolute;
   right: 14px;
@@ -490,13 +549,16 @@ body.theme-light .story__frame{
   border-radius: 10px;
   border: 1px solid var(--stroke);
   background: color-mix(in oklab, var(--card) 80%, transparent);
+  color: var(--text);
+  -webkit-text-fill-color: var(--text);
+  transition: transform .18s ease;
 }
 .faq__a{
   max-height: 0;
   overflow:hidden;
   transition: max-height .22s ease;
   color: var(--muted);
-  padding-right: 40px;
+  padding-right: 44px;
 }
 .faq__item[aria-expanded="true"] .faq__a{
   max-height: 220px;
@@ -507,9 +569,7 @@ body.theme-light .story__frame{
 /* =========================
    Final + Sticky
 ========================= */
-.final{
-  padding: 28px 0 90px;
-}
+.final{ padding: 28px 0 90px; }
 .final__inner{
   border:1px solid var(--stroke);
   border-radius: 24px;
@@ -610,9 +670,7 @@ body.theme-light .story__frame{
   color: var(--text);
   outline: none;
 }
-body.theme-light .field input{
-  background: #fff;
-}
+body.theme-light .field input{ background: #fff; color: var(--text); }
 .field input:focus{
   border-color: color-mix(in oklab, var(--primary) 40%, var(--stroke));
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 20%, transparent);
@@ -677,41 +735,19 @@ body.theme-light .field input{
   font-weight: 800;
 }
 
-/* =========================
-   FIX FAQ (modo oscuro: texto + ícono +)
-   Pegar AL FINAL del styles.css
-========================= */
-
-/* Asegurar que el botón y todo su contenido tengan color correcto */
-.faq__item{
-  color: var(--text) !important;        /* fuerza texto visible */
-  -webkit-text-fill-color: var(--text); /* algunos móviles */
+/* TikTok iframe responsive dentro del modal */
+.tiktokFrame{
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--stroke);
+  background: #000;
 }
-
-.faq__q{
-  color: var(--text) !important;
+.tiktokFrame iframe{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-
-/* Ícono + visible */
-.faq__icon{
-  color: var(--text) !important;        /* el + */
-  border-color: var(--stroke);
-  background: color-mix(in oklab, var(--card) 85%, transparent);
-}
-
-/* Respuesta: buen contraste (gris legible) */
-.faq__a{
-  color: var(--muted) !important;
-}
-
-/* En modo claro, todo se adapta */
-body.theme-light .faq__item{
-  color: var(--text) !important;
-  -webkit-text-fill-color: var(--text);
-}
-body.theme-light .faq__q{ color: var(--text) !important; }
-body.theme-light .faq__icon{
-  color: var(--text) !important;
-  background: color-mix(in oklab, var(--card) 85%, transparent);
-}
-body.theme-light .faq__a{ color: var(--muted) !important; }
