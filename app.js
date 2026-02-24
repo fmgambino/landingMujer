@@ -11,6 +11,7 @@
 // Si te da 400 (Bad Request), casi siempre es porque el backend no recibe los campos esperados.
 // Para cambiar el endpoint (otra landing o ruta), editá SOLO estas líneas:
 const LEADS_ENDPOINT = "https://elinversorg.info/api/lead-master.php";
+//const LEADS_ENDPOINT = "https://elinversorg.info/api/lead-master.php";
 
 const CONFIG = {
   apiEndpoint: LEADS_ENDPOINT, // (redundante pero cómodo)
@@ -20,8 +21,8 @@ const CONFIG = {
 };
 
 // Acciones post-submit (editá a tus URLs reales)
-const EBOOK_URL = "https://elinversorg.info/ebook-gratis.pdf";
-const WHATSAPP_CHANNEL_URL = "https://chat.whatsapp.com/TU-CANAL";
+const EBOOK_URL = "https://elinversorg.info/cursos/master-class-trading-basico/lessons/e-ebooks-la-biblia-del-inversor/";
+const WHATSAPP_CHANNEL_URL = "https://whatsapp.com/channel/0029VaBuFo9LCoWwTUlQt410";
 
 // Fecha objetivo para el contador (ajustala)
 const EVENT_DATETIME = "2026-03-10T11:30:00-03:00";

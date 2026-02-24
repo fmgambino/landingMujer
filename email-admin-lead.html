@@ -1,0 +1,203 @@
+<div style="margin:0;padding:0;background:#0b0f14;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0b0f14;padding:24px 0;">
+    <tr>
+      <td align="center">
+
+        <table width="100%" cellpadding="0" cellspacing="0"
+          style="max-width:720px;background:#0f172a;border:1px solid #1e293b;border-radius:16px;overflow:hidden;">
+
+          <!-- HEADER LOGO -->
+          <tr>
+            <td align="center" style="padding:22px;background:#020617;border-bottom:1px solid #1e293b;">
+              <a href="https://elinversorg.info" target="_blank" rel="noopener">
+                <img src="https://elinversorg.info/wp-content/uploads/2024/11/cropped-logoEIG_WhiteGroup.png"
+                     alt="El Inversor G"
+                     width="260"
+                     style="display:block;border:0;max-width:220px;">
+              </a>
+            </td>
+          </tr>
+
+          <!-- TITLE + SCORE -->
+          <tr>
+            <td style="padding:22px 24px;background:#111827;">
+              <div style="font-family:Arial,Helvetica,sans-serif;color:#22c55e;font-size:26px;font-weight:900;line-height:1.1;">
+                📩 Nuevo Lead (Landing Máster)
+              </div>
+
+              <div style="margin-top:10px;">
+                <span style="display:inline-block;padding:7px 10px;border-radius:999px;border:1px solid #1e293b;
+                             background:#020617;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#cbd5e1;">
+                  Lead Score: <b style="color:#ffffff;">{{SCORE}}/100</b>
+                </span>
+
+                <span style="display:inline-block;padding:7px 10px;border-radius:999px;border:1px solid #1e293b;
+                             background:{{STATUS_BG}};font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#020617;margin-left:8px;">
+                  <b>{{STATUS_LABEL}}</b>
+                </span>
+              </div>
+
+              <div style="font-family:Arial,Helvetica,sans-serif;color:#94a3b8;font-size:12px;margin-top:10px;">
+                Fecha: <b style="color:#e5e7eb;">{{DATE}}</b> · Fuente: <b style="color:#e5e7eb;">{{SOURCE}}</b>
+              </div>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="padding:22px 24px;">
+
+              <!-- LEAD CARD -->
+              <table width="100%" cellpadding="0" cellspacing="0"
+                style="border:1px solid #1e293b;border-radius:14px;background:#020617;padding:16px;">
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#94a3b8;font-size:12px;">Nombre</td>
+                </tr>
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#ffffff;font-size:18px;font-weight:900;padding-bottom:12px;">
+                    {{NAME}}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#94a3b8;font-size:12px;">Email</td>
+                </tr>
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#e5e7eb;font-size:14px;padding-bottom:12px;">
+                    {{EMAIL}}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#94a3b8;font-size:12px;">WhatsApp</td>
+                </tr>
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#e5e7eb;font-size:14px;">
+                    {{WHATSAPP}}
+                  </td>
+                </tr>
+
+                <!-- DIVIDER -->
+                <tr><td style="height:12px;"></td></tr>
+                <tr>
+                  <td style="height:1px;background:#1e293b;"></td>
+                </tr>
+                <tr><td style="height:12px;"></td></tr>
+
+                <!-- QUICK INSIGHTS -->
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#ffffff;font-size:13px;font-weight:900;padding-bottom:8px;">
+                    ⚡ Insights rápidos
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#cbd5e1;font-size:13px;line-height:1.7;">
+                    ✅ Dominio email: <b style="color:#ffffff;">{{EMAIL_DOMAIN}}</b><br>
+                    ✅ País/Idioma probable: <b style="color:#ffffff;">{{LOCALE}}</b><br>
+                    ✅ Dispositivo: <b style="color:#ffffff;">{{DEVICE}}</b><br>
+                    ✅ Referer: <b style="color:#ffffff;">{{REFERER}}</b>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA BUTTONS -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:18px;">
+                <tr>
+                  <td align="center" style="padding:6px;">
+                    <a href="https://wa.me/{{WA_LINK}}?text={{WA_TEXT}}"
+                       target="_blank" rel="noopener"
+                       style="display:inline-block;width:100%;max-width:520px;text-align:center;
+                              background:#22c55e;border-radius:12px;padding:14px 16px;
+                              font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:900;
+                              color:#020617;text-decoration:none;">
+                      💬 Abrir WhatsApp con mensaje
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:6px;">
+                    <a href="mailto:{{EMAIL}}?subject={{MAILTO_SUBJECT}}&body={{MAILTO_BODY}}"
+                       style="display:inline-block;width:100%;max-width:520px;text-align:center;
+                              background:#60a5fa;border-radius:12px;padding:14px 16px;
+                              font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:900;
+                              color:#020617;text-decoration:none;">
+                      ✉️ Responder por email
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:6px;">
+                    <a href="{{LANDING_URL}}" target="_blank" rel="noopener"
+                       style="display:inline-block;width:100%;max-width:520px;text-align:center;
+                              background:#ffd166;border-radius:12px;padding:14px 16px;
+                              font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:900;
+                              color:#020617;text-decoration:none;">
+                      🔎 Abrir landing / verificar oferta
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- CRM Placeholder -->
+                <tr>
+                  <td align="center" style="padding:6px;">
+                    <a href="{{CRM_URL}}" target="_blank" rel="noopener"
+                       style="display:inline-block;width:100%;max-width:520px;text-align:center;
+                              background:#a78bfa;border-radius:12px;padding:14px 16px;
+                              font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:900;
+                              color:#020617;text-decoration:none;">
+                      📌 Guardar en CRM / Planilla (PRO)
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- META + UTM -->
+              <table width="100%" cellpadding="0" cellspacing="0"
+                style="margin-top:18px;border:1px dashed #334155;border-radius:14px;background:#0b1220;padding:14px;">
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#ffffff;font-size:13px;font-weight:900;">
+                    🧾 Metadata (diagnóstico)
+                  </td>
+                </tr>
+                <tr><td style="height:8px;"></td></tr>
+                <tr>
+                  <td style="font-family:Arial,Helvetica,sans-serif;color:#cbd5e1;font-size:12px;line-height:1.7;">
+                    IP: <b style="color:#ffffff;">{{IP}}</b><br>
+                    User-Agent: <b style="color:#ffffff;">{{UA}}</b><br>
+                    UTM Source: <b style="color:#ffffff;">{{UTM_SOURCE}}</b><br>
+                    UTM Medium: <b style="color:#ffffff;">{{UTM_MEDIUM}}</b><br>
+                    UTM Campaign: <b style="color:#ffffff;">{{UTM_CAMPAIGN}}</b><br>
+                    UTM Content: <b style="color:#ffffff;">{{UTM_CONTENT}}</b><br>
+                    UTM Term: <b style="color:#ffffff;">{{UTM_TERM}}</b>
+                  </td>
+                </tr>
+              </table>
+
+              <div style="font-family:Arial,Helvetica,sans-serif;color:#94a3b8;font-size:11px;margin-top:14px;line-height:1.6;">
+                Tip: Si el score es alto, priorizá respuesta inmediata. El timing define la conversión.
+              </div>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td align="center" style="padding:22px;background:#020617;border-top:1px solid #1e293b;">
+              <div style="font-family:Arial,Helvetica,sans-serif;color:#22c55e;font-size:18px;font-weight:900;letter-spacing:.4px;">
+                EL INVERSOR G
+              </div>
+              <div style="font-family:Arial,Helvetica,sans-serif;color:#94a3b8;font-size:12px;margin-top:4px;">
+                https://elinversorg.info
+              </div>
+              <div style="font-family:Arial,Helvetica,sans-serif;color:#64748b;font-size:11px;margin-top:8px;">
+                Sistema automático de leads · Electrónica Gambino © 2026
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</div>
