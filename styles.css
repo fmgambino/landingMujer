@@ -676,3 +676,42 @@ body.theme-light .field input{
   color: color-mix(in oklab, var(--primary) 80%, var(--text));
   font-weight: 800;
 }
+
+/* =========================
+   FIX FAQ (modo oscuro: texto + ícono +)
+   Pegar AL FINAL del styles.css
+========================= */
+
+/* Asegurar que el botón y todo su contenido tengan color correcto */
+.faq__item{
+  color: var(--text) !important;        /* fuerza texto visible */
+  -webkit-text-fill-color: var(--text); /* algunos móviles */
+}
+
+.faq__q{
+  color: var(--text) !important;
+}
+
+/* Ícono + visible */
+.faq__icon{
+  color: var(--text) !important;        /* el + */
+  border-color: var(--stroke);
+  background: color-mix(in oklab, var(--card) 85%, transparent);
+}
+
+/* Respuesta: buen contraste (gris legible) */
+.faq__a{
+  color: var(--muted) !important;
+}
+
+/* En modo claro, todo se adapta */
+body.theme-light .faq__item{
+  color: var(--text) !important;
+  -webkit-text-fill-color: var(--text);
+}
+body.theme-light .faq__q{ color: var(--text) !important; }
+body.theme-light .faq__icon{
+  color: var(--text) !important;
+  background: color-mix(in oklab, var(--card) 85%, transparent);
+}
+body.theme-light .faq__a{ color: var(--muted) !important; }
