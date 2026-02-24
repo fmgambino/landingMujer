@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Masterclass en Vivo | El Inversor G</title>
+  <meta name="description" content="Masterclass en vivo y gratuita. Aprendé finanzas y trading con criterio, sin humo. Reserva tu lugar." />
+  <link rel="icon" type="image/x-icon" href="https://elinversorg.info/wp-content/uploads/2024/11/cropped-iconEIG_Blue_Circulo-180x180.png">
+  <!-- Fonts (estilo seminario premium) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="theme-dark">
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <div class="brand">
+        <img class="brand__logo" src="https://elinversorg.info/wp-content/uploads/2024/11/cropped-logoEIG_WhiteGroup.png" alt="El Inversor G" />
+        <div class="brand__meta">
+          <span class="brand__name">El Inversor G</span>
+          <span class="brand__tag">MASTERCLASS EN VIVO</span>
+        </div>
+      </div>
+
+      <div class="topbar__actions">
+        <button class="btn btn--ghost btn--sm" data-open-form>
+          Reservar lugar
+        </button>
+
+        <button id="themeToggle" class="iconbtn" aria-label="Cambiar tema" title="Cambiar tema">
+          <span class="iconbtn__icon" id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <div class="pill">
+          <span class="pill__dot"></span>
+          <span>Evento práctico · En vivo · Gratuito</span>
+        </div>
+
+        <h1 class="hero__title">
+          Aprendé a <span class="hl">pensar como inversora</span><br>
+          y tomar decisiones con criterio
+        </h1>
+
+        <p class="hero__subtitle">
+          Si sentís que el dinero se te va y las inversiones te parecen confusas,
+          esta masterclass te da un mapa claro: qué mirar, qué evitar y cómo avanzar sin depender de opiniones ajenas.
+        </p>
+
+        <div class="hero__cta">
+          <button class="btn btn--primary" data-open-form>
+            Agendar Masterclass en vivo
+          </button>
+          <button class="btn btn--outline" data-scroll="#sectionFit">
+            Ver si es para mí
+          </button>
+        </div>
+
+        <div class="hero__trust">
+          <div class="trust">
+            <span class="trust__kicker">Te llevás</span>
+            <span class="trust__value">E-book + material + canal</span>
+          </div>
+          <div class="trust">
+            <span class="trust__kicker">Modalidad</span>
+            <span class="trust__value">En vivo · cupos limitados</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Countdown card -->
+      <aside class="hero__card card">
+        <div class="card__head">
+          <div class="card__badge">Faltan solo</div>
+          <div class="card__note">para el próximo vivo</div>
+        </div>
+
+        <div class="countdown" id="countdown">
+          <div class="cd">
+            <div class="cd__num" id="cdDays">--</div>
+            <div class="cd__lbl">días</div>
+          </div>
+          <div class="cd">
+            <div class="cd__num" id="cdHours">--</div>
+            <div class="cd__lbl">horas</div>
+          </div>
+          <div class="cd">
+            <div class="cd__num" id="cdMins">--</div>
+            <div class="cd__lbl">min</div>
+          </div>
+          <div class="cd">
+            <div class="cd__num" id="cdSecs">--</div>
+            <div class="cd__lbl">seg</div>
+          </div>
+        </div>
+
+        <div class="card__sep"></div>
+
+        <div class="card__bullets">
+          <div class="mini">
+            <span class="mini__dot"></span>
+            <span>Premios por asistencia + beneficios sorpresa</span>
+          </div>
+          <div class="mini">
+            <span class="mini__dot"></span>
+            <span>Acceso al canal exclusivo</span>
+          </div>
+          <div class="mini">
+            <span class="mini__dot"></span>
+            <span>Guía de próximos pasos</span>
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--full" data-open-form>
+          Reservar mi lugar ahora
+        </button>
+
+        <div class="card__fine">
+          No enviamos spam · Confirmación inmediata
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Fit section (cards tipo checklist como tu referencia) -->
+  <section class="section" id="sectionFit">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Si te sentís identificada con 3 o más de estos puntos…</h2>
+        <p class="muted">Es importante que asistas al evento. Te va a ordenar la cabeza y el plan.</p>
+      </div>
+
+      <div class="fitgrid">
+        <button class="fitcard" type="button" data-open-form>
+          <span class="fitcard__icon">✔</span>
+          <span class="fitcard__text">Me siento estancada y mi trabajo no me motiva</span>
+        </button>
+        <button class="fitcard" type="button" data-open-form>
+          <span class="fitcard__icon">✔</span>
+          <span class="fitcard__text">Veo cómo la economía cambia y tengo miedo de quedarme atrás</span>
+        </button>
+        <button class="fitcard" type="button" data-open-form>
+          <span class="fitcard__icon">✔</span>
+          <span class="fitcard__text">Busco un mejor salario o ingresos extra</span>
+        </button>
+        <button class="fitcard" type="button" data-open-form>
+          <span class="fitcard__icon">✔</span>
+          <span class="fitcard__text">Quiero crecer profesionalmente y tomar mejores decisiones</span>
+        </button>
+        <button class="fitcard" type="button" data-open-form>
+          <span class="fitcard__icon">✔</span>
+          <span class="fitcard__text">Quiero una nueva etapa que me motive</span>
+        </button>
+        <button class="fitcard" type="button" data-open-form>
+          <span class="fitcard__icon">✔</span>
+          <span class="fitcard__text">Quiero una profesión donde se valore mi talento</span>
+        </button>
+      </div>
+
+      <div class="section__cta">
+        <button class="btn btn--primary" data-open-form>Agendar Masterclass en vivo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- What you'll learn -->
+  <section class="section section--alt" id="sectionLearn">
+    <div class="wrap">
+      <div class="section__head">
+        <div class="kicker">RUTA FORMATIVA</div>
+        <h2>Qué vas a lograr en esta masterclass</h2>
+        <p class="muted">
+          Sin tecnicismos innecesarios. Con ejemplos y criterio.
+        </p>
+      </div>
+
+      <div class="cards3">
+        <div class="info card">
+          <div class="info__top">
+            <div class="info__badge">1</div>
+            <h3>Entender el juego</h3>
+          </div>
+          <p class="muted">Qué es “riesgo” de verdad, cómo se mide y cómo se controla sin paralizarte.</p>
+        </div>
+        <div class="info card">
+          <div class="info__top">
+            <div class="info__badge">2</div>
+            <h3>Elegir bien</h3>
+          </div>
+          <p class="muted">Qué mirar antes de invertir (y qué ignorar) para evitar errores caros.</p>
+        </div>
+        <div class="info card">
+          <div class="info__top">
+            <div class="info__badge">3</div>
+            <h3>Plan de acción</h3>
+          </div>
+          <p class="muted">Cómo seguir formándote y avanzar paso a paso sin depender de terceros.</p>
+        </div>
+      </div>
+
+      <div class="section__cta">
+        <button class="btn btn--primary" data-open-form>Reservar lugar</button>
+        <button class="btn btn--ghost" data-scroll="#sectionTikTok">Ver videos</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TikTok vertical slider -->
+  <section class="section" id="sectionTikTok">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Contenido real (videos verticales)</h2>
+        <p class="muted">
+          Slider tipo “stories”. Podés reproducirlos si completás el <b>videoId</b> (TikTok embed oficial).
+          Si no, el botón abre el link en otra pestaña.
+        </p>
+      </div>
+
+      <div class="slider slider--stories" id="tiktokSlider" aria-label="TikTok slider">
+        <!-- JS inject -->
+      </div>
+
+      <div class="section__cta">
+        <button class="btn btn--primary" data-open-form>Agendar masterclass</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews slider -->
+  <section class="section section--alt" id="sectionReviews">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Mujeres que ya participaron</h2>
+        <p class="muted">Testimonios breves, directos y distintos (Argentina, Chile, Colombia y Perú).</p>
+      </div>
+
+      <div class="slider slider--reviews" id="reviewsSlider" aria-label="Reviews slider">
+        <!-- JS inject -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="sectionFAQ">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Preguntas frecuentes</h2>
+        <p class="muted">Respuestas claras para reducir dudas y aumentar confirmaciones.</p>
+      </div>
+
+      <div class="faq" id="faq">
+        <button class="faq__item" type="button" aria-expanded="false">
+          <span class="faq__q">¿Necesito conocimientos previos?</span>
+          <span class="faq__icon">+</span>
+          <div class="faq__a">No. Está diseñada desde cero, con ejemplos y criterio (sin humo).</div>
+        </button>
+
+        <button class="faq__item" type="button" aria-expanded="false">
+          <span class="faq__q">¿La masterclass es en vivo?</span>
+          <span class="faq__icon">+</span>
+          <div class="faq__a">Sí. Es en vivo. Además podés hacer preguntas y llevarte el material.</div>
+        </button>
+
+        <button class="faq__item" type="button" aria-expanded="false">
+          <span class="faq__q">¿Tiene costo?</span>
+          <span class="faq__icon">+</span>
+          <div class="faq__a">No. Es 100% gratuita. Solo requiere inscripción para reservar cupo.</div>
+        </button>
+
+        <button class="faq__item" type="button" aria-expanded="false">
+          <span class="faq__q">¿Qué pasa después de anotarme?</span>
+          <span class="faq__icon">+</span>
+          <div class="faq__a">Se habilita en el mismo popup: agenda en Google Calendar, descarga del e-book y canal de WhatsApp.</div>
+        </button>
+
+        <button class="faq__item" type="button" aria-expanded="false">
+          <span class="faq__q">¿Dónde llega la confirmación?</span>
+          <span class="faq__icon">+</span>
+          <div class="faq__a">Tus datos se registran en el sistema de leads de ElInversorG para que recibas instrucciones y recordatorios.</div>
+        </button>
+      </div>
+
+      <div class="section__cta">
+        <button class="btn btn--primary" data-open-form>Agendar ahora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final">
+    <div class="wrap final__inner">
+      <div>
+        <div class="kicker">CUPOS LIMITADOS</div>
+        <h2>Reservá tu lugar en la Masterclass en vivo</h2>
+        <p class="muted">Inscripción rápida. Confirmación inmediata. Acceso a materiales.</p>
+      </div>
+
+      <button class="btn btn--primary btn--lg" data-open-form>
+        Confirmar inscripción
+      </button>
+    </div>
+  </section>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky">
+    <button class="btn btn--primary btn--full" data-open-form>Agendar masterclass</button>
+  </div>
+
+  <!-- FORM MODAL -->
+  <div class="modal" id="formModal" aria-hidden="true" role="dialog" aria-label="Formulario de inscripción">
+    <div class="modal__backdrop" data-close></div>
+
+    <div class="modal__panel" role="document">
+      <div class="modal__top">
+        <div class="modal__title">
+          <div class="modal__mark">✓</div>
+          <div>
+            <h3>Reservá tu lugar</h3>
+            <p class="muted">Es gratuita, en vivo y con cupos limitados.</p>
+          </div>
+        </div>
+        <button class="iconbtn" data-close aria-label="Cerrar">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <form id="leadForm" class="form">
+          <label class="field">
+            <span class="field__lbl">Nombre</span>
+            <input name="nombre" autocomplete="name" required placeholder="Tu nombre completo" />
+          </label>
+
+          <label class="field">
+            <span class="field__lbl">WhatsApp</span>
+            <input name="whatsapp" inputmode="tel" autocomplete="tel" required placeholder="+54 381..." />
+          </label>
+
+          <label class="field">
+            <span class="field__lbl">Email</span>
+            <input type="email" name="email" autocomplete="email" required placeholder="tu@email.com" />
+          </label>
+
+          <button type="submit" class="btn btn--primary btn--full btn--lg" id="submitBtn">
+            Confirmar inscripción
+          </button>
+
+          <div class="form__fine muted">
+            No enviamos spam · Acceso inmediato · Recordatorios antes del vivo
+          </div>
+        </form>
+
+        <!-- Post submit actions -->
+        <div id="postActions" class="post hidden">
+          <div class="post__head">
+            <div class="post__ok">🎉</div>
+            <div>
+              <h4>¡Inscripción confirmada!</h4>
+              <p class="muted">Completá estos 3 pasos para aprovechar todo.</p>
+            </div>
+          </div>
+
+          <div class="post__actions">
+            <a id="calendarLink" class="btn btn--outline btn--full" target="_blank" rel="noopener">
+              📅 Agendar en Google Calendar
+            </a>
+            <a id="ebookLink" class="btn btn--ghost btn--full" target="_blank" rel="noopener">
+              📘 Descargar E-book gratis
+            </a>
+            <a id="waLink" class="btn btn--wa btn--full" target="_blank" rel="noopener">
+              💬 Unirme al canal de WhatsApp
+            </a>
+          </div>
+
+          <div class="post__fine muted">
+            Tip: Agendá primero para no olvidarte del vivo.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO MODAL (TikTok embed) -->
+  <div class="modal" id="videoModal" aria-hidden="true" role="dialog" aria-label="Reproductor de video">
+    <div class="modal__backdrop" data-close-video></div>
+    <div class="modal__panel modal__panel--video" role="document">
+      <div class="modal__top">
+        <div class="modal__title">
+          <div>
+            <h3>Video</h3>
+            <p class="muted">Reproducción en embed oficial (si hay videoId).</p>
+          </div>
+        </div>
+        <button class="iconbtn" data-close-video aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal__body">
+        <div id="videoContainer" class="videoBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <span>Diseño y Desarrollo by <strong>Electrónica Gambino</strong></span>
+      <span class="muted">·</span>
+      <a class="footer__link" href="#" data-open-form>Agendar masterclass</a>
+    </div>
+  </footer>
+
+  <!-- TikTok embed script (necesario si usás videoId) -->
+  <script async src="https://www.tiktok.com/embed.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
