@@ -3,7 +3,13 @@
 ========================= */
 
 // 1) Endpoint de leads (TU endpoint real)
-const LEADS_ENDPOINT = "https://elinversorg.info/wp-json/eig-leads/v1/lead";
+const LEADS_ENDPOINT = "https://elinversorg.info/api/lead-master.php";
+
+const CONFIG = {
+  apiEndpoint: "https://elinversorg.info/api/lead-master.php",
+  ownerWhatsAppPhone: "5493810000000",
+  waMsgPrefix: "Hola Fernando! Quiero los e-books gratis y recibir info del MASTER EN FINANZAS & TRADING DESDE CERO. Para Mujeres "
+};
 
 // 2) Acciones post-submit (editá a tus URLs reales)
 const EBOOK_URL = "https://elinversorg.info/ebook-gratis.pdf";
@@ -83,6 +89,35 @@ function buildCalendarLink({ title, details, startISO, endISO, email }){
     add: email || ""
   });
   return `https://www.google.com/calendar/render?${params.toString()}`;
+}
+
+async function sendLead(payload){
+  // Intento 1: JSON
+  const res1 = await fetch(LEADS_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json, text/plain, */*"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (res1.ok) return res1;
+
+  // Fallback: x-www-form-urlencoded (muchos PHP esperan $_POST)
+  const form = new URLSearchParams();
+  Object.entries(payload).forEach(([k,v]) => form.append(k, String(v ?? "")));
+
+  const res2 = await fetch(LEADS_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      "Accept": "application/json, text/plain, */*"
+    },
+    body: form.toString()
+  });
+
+  return res2;
 }
 
 /* =========================
@@ -315,14 +350,12 @@ leadForm?.addEventListener("submit", async (e) => {
   submitBtn.textContent = "Confirmando…";
 
   try{
-    const res = await fetch(LEADS_ENDPOINT, {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify(payload)
-    });
+    const res = await sendLead(payload);
 
-    if (!res.ok) throw new Error("No se pudo enviar el lead (HTTP " + res.status + ")");
-
+if (!res.ok) {
+  const txt = await res.text().catch(()=> "");
+  throw new Error("No se pudo enviar el lead (HTTP " + res.status + "): " + txt.slice(0,200));
+}
     const start = new Date(EVENT_DATETIME);
     const end = new Date(start.getTime() + 60*60*1000);
 
