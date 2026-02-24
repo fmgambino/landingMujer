@@ -1,26 +1,32 @@
 /* =========================
-   CONFIG
+   landingMujer - app.js
+   Corregido + optimizado
+   ========================= */
+
+/* =========================
+   CONFIG (EDITABLE)
 ========================= */
 
-// 1) Endpoint de leads (TU endpoint real)
+// ✅ ENDPOINT (BACKEND)
+// Si te da 400 (Bad Request), casi siempre es porque el backend no recibe los campos esperados.
+// Para cambiar el endpoint (otra landing o ruta), editá SOLO estas líneas:
 const LEADS_ENDPOINT = "https://elinversorg.info/api/lead-master.php";
 
 const CONFIG = {
-  apiEndpoint: "https://elinversorg.info/api/lead-master.php",
-  ownerWhatsAppPhone: "5493810000000",
-  waMsgPrefix: "Hola Fernando! Quiero los e-books gratis y recibir info del MASTER EN FINANZAS & TRADING DESDE CERO. Para Mujeres "
+  apiEndpoint: LEADS_ENDPOINT, // (redundante pero cómodo)
+  ownerWhatsAppPhone: "5493810000000", // solo para link prellenado (si lo usás)
+  waMsgPrefix:
+    "Hola Fernando! Quiero los e-books gratis y recibir info del MASTER EN FINANZAS & TRADING DESDE CERO. Para Mujeres "
 };
 
-// 2) Acciones post-submit (editá a tus URLs reales)
+// Acciones post-submit (editá a tus URLs reales)
 const EBOOK_URL = "https://elinversorg.info/ebook-gratis.pdf";
 const WHATSAPP_CHANNEL_URL = "https://chat.whatsapp.com/TU-CANAL";
 
-// 3) Fecha objetivo para el contador (ajustala)
+// Fecha objetivo para el contador (ajustala)
 const EVENT_DATETIME = "2026-03-10T11:30:00-03:00";
 
-// 4) TikToks (verticales) + thumbnail (imagen previa)
-// 👉 thumb: poné una imagen tuya (recomendado 1080x1920) o screenshot del video.
-// 👉 videoId: si está, se reproduce embebido; si no, abre el link.
+// TikToks (verticales) + thumbnail
 const TIKTOKS = [
   {
     title: "Mis 3 tips Rentables",
@@ -48,11 +54,11 @@ const TIKTOKS = [
     sub: "Próximos pasos",
     url: "https://www.tiktok.com/",
     videoId: "",
-    thumb: "/elinversorg.info/wp-content/uploads/2026/02/tiktok-thumb-4.jpg"
+    thumb: "https://elinversorg.info/wp-content/uploads/2026/02/tiktok-thumb-4.jpg"
   }
 ];
 
-// 5) Reviews (mujeres + países) con fotos femeninas
+// Reviews
 const REVIEWS = [
   { name: "Lucía M.", country: "Argentina", stars: 5, text: "Me ordenó la cabeza. Ahora sé qué mirar y qué ignorar.", img: "https://randomuser.me/api/portraits/women/32.jpg" },
   { name: "Camila R.", country: "Chile", stars: 5, text: "Cero humo. Explica con lógica y ejemplos claros.", img: "https://randomuser.me/api/portraits/women/44.jpg" },
@@ -64,20 +70,46 @@ const REVIEWS = [
 /* =========================
    HELPERS
 ========================= */
-const $ = (sel, root=document) => root.querySelector(sel);
-const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-function pad2(n){ return String(n).padStart(2, "0"); }
-function escapeHtml(s){
-  return String(s)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+function pad2(n) {
+  return String(n).padStart(2, "0");
 }
 
-function buildCalendarLink({ title, details, startISO, endISO, email }){
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+/* =========================
+   ✅ UTM HELPER (FIX)
+   - Evita el ReferenceError
+   - Captura utm_* desde la URL
+========================= */
+function getUtmParams() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+    const out = {};
+    keys.forEach((k) => {
+      const v = p.get(k);
+      if (v) out[k] = v;
+    });
+    return out;
+  } catch (_) {
+    return {};
+  }
+}
+
+/* =========================
+   Calendar helper
+========================= */
+function buildCalendarLink({ title, details, startISO, endISO, email }) {
   const fmt = (d) => d.toISOString().replace(/-|:|\.\d{3}/g, "");
   const start = fmt(new Date(startISO));
   const end = fmt(new Date(endISO));
@@ -91,13 +123,18 @@ function buildCalendarLink({ title, details, startISO, endISO, email }){
   return `https://www.google.com/calendar/render?${params.toString()}`;
 }
 
-async function sendLead(payload){
+/* =========================
+   Lead sender (robusto)
+   - Intento 1: JSON
+   - Fallback: x-www-form-urlencoded
+========================= */
+async function sendLead(payload) {
   // Intento 1: JSON
   const res1 = await fetch(LEADS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Accept": "application/json, text/plain, */*"
+      Accept: "application/json, text/plain, */*"
     },
     body: JSON.stringify(payload)
   });
@@ -106,13 +143,13 @@ async function sendLead(payload){
 
   // Fallback: x-www-form-urlencoded (muchos PHP esperan $_POST)
   const form = new URLSearchParams();
-  Object.entries(payload).forEach(([k,v]) => form.append(k, String(v ?? "")));
+  Object.entries(payload).forEach(([k, v]) => form.append(k, String(v ?? "")));
 
   const res2 = await fetch(LEADS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      "Accept": "application/json, text/plain, */*"
+      Accept: "application/json, text/plain, */*"
     },
     body: form.toString()
   });
@@ -123,7 +160,7 @@ async function sendLead(payload){
 /* =========================
    THEME (robusto)
 ========================= */
-(function initTheme(){
+(function initTheme() {
   const btn = $("#themeToggle");
   const icon = $("#themeIcon");
   if (!btn || !icon) return;
@@ -155,18 +192,18 @@ async function sendLead(payload){
 /* =========================
    SCROLL
 ========================= */
-$$("[data-scroll]").forEach(btn=>{
+$$("[data-scroll]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const sel = btn.getAttribute("data-scroll");
     const el = document.querySelector(sel);
-    if (el) el.scrollIntoView({ behavior:"smooth", block:"start" });
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
 
 /* =========================
    COUNTDOWN
 ========================= */
-(function initCountdown(){
+(function initCountdown() {
   const dEl = $("#cdDays");
   const hEl = $("#cdHours");
   const mEl = $("#cdMins");
@@ -175,7 +212,7 @@ $$("[data-scroll]").forEach(btn=>{
 
   const target = new Date(EVENT_DATETIME).getTime();
 
-  function tick(){
+  function tick() {
     const now = Date.now();
     const diff = Math.max(0, target - now);
     const totalSec = Math.floor(diff / 1000);
@@ -198,11 +235,11 @@ $$("[data-scroll]").forEach(btn=>{
 /* =========================
    FAQ Accordion
 ========================= */
-(function initFAQ(){
-  $$(".faq__item").forEach(item=>{
+(function initFAQ() {
+  $$(".faq__item").forEach((item) => {
     item.addEventListener("click", () => {
       const open = item.getAttribute("aria-expanded") === "true";
-      $$(".faq__item").forEach(x => x.setAttribute("aria-expanded", "false"));
+      $$(".faq__item").forEach((x) => x.setAttribute("aria-expanded", "false"));
       item.setAttribute("aria-expanded", open ? "false" : "true");
     });
   });
@@ -211,7 +248,7 @@ $$("[data-scroll]").forEach(btn=>{
 /* =========================
    TikTok slider (con thumbnail)
 ========================= */
-(function renderTikToks(){
+(function renderTikToks() {
   const host = $("#tiktokSlider");
   if (!host) return;
 
@@ -274,12 +311,16 @@ $$("[data-scroll]").forEach(btn=>{
 /* =========================
    Reviews slider
 ========================= */
-(function renderReviews(){
+(function renderReviews() {
   const host = $("#reviewsSlider");
   if (!host) return;
 
-  const starsStr = (n) => "★★★★★☆☆☆☆☆".slice(0, Math.min(5,n)) + "☆☆☆☆☆".slice(0, 5-Math.min(5,n));
-  host.innerHTML = REVIEWS.map(r => {
+  const starsStr = (n) => {
+    const x = Math.max(0, Math.min(5, Number(n) || 0));
+    return "★★★★★☆☆☆☆☆".slice(0, x) + "☆☆☆☆☆".slice(0, 5 - x);
+  };
+
+  host.innerHTML = REVIEWS.map((r) => {
     const name = escapeHtml(r.name);
     const country = escapeHtml(r.country);
     const text = escapeHtml(r.text);
@@ -310,54 +351,76 @@ const leadForm = $("#leadForm");
 const postActions = $("#postActions");
 const submitBtn = $("#submitBtn");
 
-function openFormModal(){
+function openFormModal() {
   if (!formModal) return;
   formModal.classList.add("is-open");
-  formModal.setAttribute("aria-hidden","false");
+  formModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   const first = leadForm?.querySelector("input[name='nombre']");
   setTimeout(() => first?.focus(), 80);
 }
-function closeFormModal(){
+
+function closeFormModal() {
   if (!formModal) return;
   formModal.classList.remove("is-open");
-  formModal.setAttribute("aria-hidden","true");
+  formModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
 }
 
-$$("[data-open-form]").forEach(btn => btn.addEventListener("click", openFormModal));
-$$("[data-close]").forEach(btn => btn.addEventListener("click", closeFormModal));
+$$("[data-open-form]").forEach((btn) => btn.addEventListener("click", openFormModal));
+$$("[data-close]").forEach((btn) => btn.addEventListener("click", closeFormModal));
 
-document.addEventListener("keydown", (e)=>{
-  if (e.key === "Escape"){
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
     if (formModal?.classList.contains("is-open")) closeFormModal();
     if ($("#videoModal")?.classList.contains("is-open")) closeVideoModal();
   }
 });
 
+/* =========================
+   SUBMIT (FIX + template routing)
+========================= */
 leadForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const formData = new FormData(leadForm);
+  const utm = getUtmParams();
+
+  // =========================
+  // IMPORTANTE (EDITABLE)
+  // lead_type determina qué plantilla usa el backend:
+  // - "ebooks"  => email-ebooks.html
+  // - "agenda"  => email-agenda-masterclass.html
+  //
+  // Si esta landing es SOLO para pedir e-books => usá "ebooks".
+  // Si este formulario es el de agendar masterclass => usá "agenda".
+  // =========================
+  const LEAD_TYPE = "agenda"; // <-- CAMBIÁ A "ebooks" si corresponde
+
+  // Payload que espera el backend (lead-master.php):
+  // Backend valida: name, whatsapp, email.
+  // (Tu input se llama "nombre", por eso mapeamos nombre -> name)
   const payload = {
-    nombre: String(formData.get("nombre") || "").trim(),
+    name: String(formData.get("nombre") || "").trim(),
     whatsapp: String(formData.get("whatsapp") || "").trim(),
     email: String(formData.get("email") || "").trim(),
-    origen: "Landing Masterclass Mujeres (Seminario)"
+
+    // Identificador de la landing (segmentación)
+    source: "Landing Masterclass Mujeres (Seminario)",
+
+    // Routing de plantilla
+    lead_type: LEAD_TYPE,
+
+    // UTM (si existen)
+    ...utm
   };
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Confirmando…";
-
-  try{
-    const res = await sendLead(payload);
-
-if (!res.ok) {
-  const txt = await res.text().catch(()=> "");
-  throw new Error("No se pudo enviar el lead (HTTP " + res.status + "): " + txt.slice(0,200));
-}
+  // Si es agenda, mandamos también data útil para el template agenda:
+  // - calendar_url
+  // - event_datetime
+  if (LEAD_TYPE === "agenda") {
     const start = new Date(EVENT_DATETIME);
-    const end = new Date(start.getTime() + 60*60*1000);
+    const end = new Date(start.getTime() + 60 * 60 * 1000);
 
     const calendar = buildCalendarLink({
       title: "Masterclass en Vivo – El Inversor G",
@@ -367,18 +430,57 @@ if (!res.ok) {
       email: payload.email
     });
 
-    $("#calendarLink").href = calendar;
-    $("#ebookLink").href = EBOOK_URL;
-    $("#waLink").href = WHATSAPP_CHANNEL_URL;
+    payload.calendar_url = calendar;
+    payload.event_datetime = EVENT_DATETIME;
+  }
 
-    leadForm.classList.add("hidden");
-    postActions.classList.remove("hidden");
+  // UI state
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Confirmando…";
+  }
 
-  } catch(err){
-    alert("Error al confirmar. Revisá tu conexión o el endpoint.\n\nDetalle: " + (err?.message || err));
+  try {
+    const res = await sendLead(payload);
+
+    if (!res.ok) {
+      const txt = await res.text().catch(() => "");
+      throw new Error("No se pudo enviar el lead (HTTP " + res.status + "): " + txt.slice(0, 240));
+    }
+
+    // Si es agenda, mostramos acciones (calendar + ebook + whatsapp)
+    // Si es ebooks, igual podés mostrar ebook/canal (depende de tu UX)
+    const start = new Date(EVENT_DATETIME);
+    const end = new Date(start.getTime() + 60 * 60 * 1000);
+
+    const calendar = buildCalendarLink({
+      title: "Masterclass en Vivo – El Inversor G",
+      details: "Masterclass gratuita en vivo. Recordatorio + materiales.",
+      startISO: start.toISOString(),
+      endISO: end.toISOString(),
+      email: payload.email
+    });
+
+    const calendarLink = $("#calendarLink");
+    const ebookLink = $("#ebookLink");
+    const waLink = $("#waLink");
+
+    if (calendarLink) calendarLink.href = calendar;
+    if (ebookLink) ebookLink.href = EBOOK_URL;
+    if (waLink) waLink.href = WHATSAPP_CHANNEL_URL;
+
+    leadForm?.classList.add("hidden");
+    postActions?.classList.remove("hidden");
+  } catch (err) {
+    alert(
+      "Error al confirmar. Revisá tu conexión o el endpoint.\n\nDetalle: " +
+        (err?.message || err)
+    );
   } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Confirmar inscripción";
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Confirmar inscripción";
+    }
   }
 });
 
@@ -388,10 +490,10 @@ if (!res.ok) {
 const videoModal = $("#videoModal");
 const videoContainer = $("#videoContainer");
 
-function openVideoModal(videoId){
+function openVideoModal(videoId) {
   if (!videoModal || !videoContainer) return;
 
-  // Embed robusto por iframe (funciona aunque embed.js no cargue)
+  // Embed robusto por iframe
   const src = `https://www.tiktok.com/embed/v2/${encodeURIComponent(videoId)}`;
 
   videoContainer.innerHTML = `
@@ -408,16 +510,16 @@ function openVideoModal(videoId){
   `;
 
   videoModal.classList.add("is-open");
-  videoModal.setAttribute("aria-hidden","false");
+  videoModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
 }
 
-function closeVideoModal(){
+function closeVideoModal() {
   if (!videoModal || !videoContainer) return;
   videoModal.classList.remove("is-open");
-  videoModal.setAttribute("aria-hidden","true");
+  videoModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
   videoContainer.innerHTML = "";
 }
 
-$$("[data-close-video]").forEach(btn => btn.addEventListener("click", closeVideoModal));
+$$("[data-close-video]").forEach((btn) => btn.addEventListener("click", closeVideoModal));
